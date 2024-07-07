@@ -7,7 +7,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url('https://images.pexels.com/photos/1824570/pexels-photo-1824570.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: contain;
+  background-position: center;
+}
+
+.app{
+  width: 90vw;
+  height: 90vh;
+  background-color: rgba(17, 25, 40, 0.16);
+  border-radius: 15px;
+  display: flex;
+  backdrop-filter: blur(10px);
 }

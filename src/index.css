@@ -15,6 +15,8 @@ body{
   background-image: url('https://images.pexels.com/photos/1824570/pexels-photo-1824570.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
   background-size: contain;
   background-position: center;
+  margin: 0;
+  padding: 0;
 }
 
 .app{

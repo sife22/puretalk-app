@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import "./Login.css"
+import { toast } from 'react-toastify'
 
 
 function Login() {
@@ -16,6 +17,11 @@ function Login() {
             })
         }
     }
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        toast.success('This is a notification');
+    }
     return (
         <div className='login'>
             <form className='loginForm'>
@@ -23,7 +29,7 @@ function Login() {
                 <div className='actions'>
                     <input type="email" placeholder='Enter your email : ' />
                     <input type="password" placeholder='Enter your password : ' />
-                    <button>Sign in</button>
+                    <button onClick={handleLogin}>Sign in</button>
                 </div>
             </form>
             <form className='registerForm'>

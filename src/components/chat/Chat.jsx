@@ -1,104 +1,159 @@
 import React, { useState, useRef, useEffect } from 'react'
 import "./Chat.css"
 import EmojiPicker from 'emoji-picker-react'
-import { useUserStore } from '../../lib/userStore';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
-
+import { useChatStore } from '../../lib/chatStore';
+import { useUserStore } from '../../lib/userStore';
+import upload from '../../lib/upload';
 
 function Chat() {
-    const endRef = useRef(null);
-    const [chats, setChats] = useState([]);
-    const {currentUser} = useUserStore();
-    useEffect(()=>{
-        endRef.current?.scrollIntoView({behavior: 'smooth'});
-        const unSub = onSnapshot(doc(db, "userchats", currentUser.id), (doc) => {
-            setChats(doc.data());
-        });
-        return ()=>{
-            unSub()
-        }
-    },[currentUser.id])
+    const { chatId, user, isCurrentUserBlocked,
+        isReceiverBlocked } = useChatStore();
+    const { currentUser } = useUserStore();
 
-    console.log(chats);
     const [open, setOpen] = useState(false);
     const [text, setText] = useState('');
+    const [img, setImg] = useState({
+        file: null,
+        url: ""
+    });
+    const [chat, setChat] = useState(false);
+    const endRef = useRef(null);
+    useEffect(() => {
+        endRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [])
+
+    const handleSend = async () => {
+        if (text === "") return;
+
+        let imgUrl = null;
+
+        try {
+
+            if (img.file) {
+                imgUrl = await upload(img.file)
+            }
+            await updateDoc(doc(db, 'chats', chatId), {
+                messages: arrayUnion({
+                    senderId: currentUser.id,
+                    text,
+                    createdAt: new Date(),
+                    ...(imgUrl && { img: imgUrl })
+                })
+            })
+
+            const userIDs = [currentUser.id, user.id];
+
+            userIDs.forEach(async (id) => {
+
+
+                const userChatsRef = doc(db, 'userchats', id);
+                const userChatsSnapshot = await getDoc(userChatsRef);
+
+                if (userChatsSnapshot.exists()) {
+                    const userChatsData = userChatsSnapshot.data()
+                    const chatIndex = userChatsData.chats.findIndex(c => c.chatId === chatId)
+
+                    userChatsData.chats[chatIndex].lastMessage = text;
+                    userChatsData.chats[chatIndex].isSeen =
+                        id === currentUser.id ? true : false;
+                    userChatsData.chats[chatIndex].updatedAt = Date.now();
+
+                    await updateDoc(userChatsRef, {
+                        chats: userChatsData.chats,
+                    })
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+        setImg({
+            file: null,
+            url: ""
+        })
+        setText('')
+    }
+
+    useEffect(() => {
+        const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
+            setChat(res.data());
+        })
+        return () => {
+            unSub();
+        }
+    }, [chatId])
+    console.log(chat);
     const handleEmoji = (e) => {
         setText((prev) => prev + e.emoji);
         setOpen(false);
     }
 
+    const handleImg = (e) => {
+        if (e.target.files[0]) {
+            setImg({
+                file: e.target.files[0],
+                url: URL.createObjectURL(e.target.files[0])
+            })
+        }
+    }
 
     return (
         <div className='chat'>
             <div className='top'>
                 <div className='user'>
-                    <img src="https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg" alt="" srcset="" />
+                <img src={user?.avatar || "https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg" } alt="" srcSet="" />
                     <div className='texts'>
-                        <span>Sif eddine</span>
+                        <span>{user?.username}</span>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     </div>
                 </div>
                 <div className='icons'>
-                    <img src="https://cdn-icons-png.freepik.com/256/455/455705.png?semt=ais_hybrid" alt="" srcset="" />
-                    <img src="https://cdn-icons-png.flaticon.com/512/4503/4503915.png" alt="" srcset="" />
-                    <img src="https://cdn-icons-png.flaticon.com/256/64/64159.png" alt="" srcset="" />
+                    <img src="https://cdn-icons-png.freepik.com/256/455/455705.png?semt=ais_hybrid" alt="" srcSet="" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/4503/4503915.png" alt="" srcSet="" />
+                    <img src="https://cdn-icons-png.flaticon.com/256/64/64159.png" alt="" srcSet="" />
                 </div>
             </div>
 
 
             <div className='center'>
-                <div className="message own">
-                    <div className="texts">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, ea minus? Animi accusantium facere voluptatem, hic modi reprehenderit. Impedit esse maiores enim consectetur nobis corporis excepturi quaerat deleniti, accusamus sint!</p>
-                        <span>2 min ago</span>
-                    </div>
-                </div>
+                {chat?.messages?.map((message) => (
+                    <div className={message.senderId === currentUser?.id ? 'message own' : 'message'} key={message?.createdAt}>
+                        <div className="texts">
+                            {message.img &&
+                                <img src={message.img} alt="" srcSet="" />
+                            }
 
-                <div className="message">
-                    <img src="https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg" alt="" srcset="" />
-                    <div className="texts">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, ea minus? Animi accusantium facere voluptatem, hic modi reprehenderit. Impedit esse maiores enim consectetur nobis corporis excepturi quaerat deleniti, accusamus sint!</p>
-                        <span>2 min ago</span>
+                            <p>{message.text}</p>
+                            {/* <span>2 min ago</span> */}
+                        </div>
                     </div>
-                </div>
+                ))}
 
-                <div className="message own">
-                    <div className="texts">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, ea minus? Animi accusantium facere voluptatem, hic modi reprehenderit. Impedit esse maiores enim consectetur nobis corporis excepturi quaerat deleniti, accusamus sint!</p>
-                        <span>2 min ago</span>
+                {img.url && (
+
+                    <div className="message own">
+                        <div className="texts">
+                            <img src={img.url} alt="" srcset="" />
+                        </div>
                     </div>
-                </div>
+                )}
 
-                <div className="message own">
-                    <div className="texts">
-                    <img src="https://fr.hespress.com/wp-content/uploads/2024/05/wac_carte_maroc1.jpg" alt="" srcset="" />
-
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, ea minus? Animi accusantium facere voluptatem, hic modi reprehenderit. Impedit esse maiores enim consectetur nobis corporis excepturi quaerat deleniti, accusamus sint!</p>
-                        <span>2 min ago</span>
-                    </div>
-                </div>
-
-                <div className="message">
-                    <img src="https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg" alt="" srcset="" />
-                    <div className="texts">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, ea minus? Animi accusantium facere voluptatem, hic modi reprehenderit. Impedit esse maiores enim consectetur nobis corporis excepturi quaerat deleniti, accusamus sint!</p>
-                        <span>2 min ago</span>
-                    </div>
-                </div>
                 <div ref={endRef}></div>
             </div>
 
 
             <div className='bottom'>
                 <div className='icons'>
-                    <img src="https://static-00.iconduck.com/assets.00/emoji-smile-icon-2048x2048-93ogyjms.png" alt="" />
-                    <img src="https://static-00.iconduck.com/assets.00/emoji-smile-icon-2048x2048-93ogyjms.png" alt="" />
-                    <img src="https://static-00.iconduck.com/assets.00/emoji-smile-icon-2048x2048-93ogyjms.png" alt="" />
+                    <label htmlFor="file">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1375/1375106.png" alt="" />
+                    </label>
+                    <input type="file" id='file' style={{ display: "none" }} onChange={handleImg} />
                 </div>
                 <input type="text"
-                    placeholder='Enter something...'
+                    placeholder={isCurrentUserBlocked || isReceiverBlocked ? '' : 'Enter something...'}
                     value={text}
+                    disabled={isCurrentUserBlocked || isReceiverBlocked}
                     onChange={(e) => setText(e.target.value)} />
                 <div className='emoji'>
                     <img src="https://static-00.iconduck.com/assets.00/emoji-smile-icon-2048x2048-93ogyjms.png" alt="" onClick={() => setOpen((prev) => !prev)} />
@@ -107,7 +162,7 @@ function Chat() {
                         <EmojiPicker open={open} onEmojiClick={handleEmoji} />
                     </div>
                 </div>
-                <button className='sendButton'>Send</button>
+                <button className='sendButton' onClick={handleSend} disabled={isCurrentUserBlocked || isReceiverBlocked} >Send</button>
             </div>
         </div>
     )

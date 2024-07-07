@@ -1,12 +1,15 @@
 import React from 'react'
 import "./UserInfo.css"
+import { useUserStore } from '../../../lib/userStore';
 
 function UserInfo() {
+  const {currentUser} = useUserStore();
+
   return (
     <div className='userInfo'>
         <div className='user'>
-            <img src="https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg" alt=""/>
-            <h2>User</h2>
+            <img src={currentUser.avatar || 'https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg'} alt=""/>
+            <h2>{currentUser.username}</h2>
         </div>
         <div className='icons'>
             <img src="https://cdn.icon-icons.com/icons2/488/PNG/512/more_47707.png" alt="" srcset="" />

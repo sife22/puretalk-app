@@ -1,8 +1,15 @@
 import React from 'react'
 import "./Detail.css"
+import { useUserStore } from '../../lib/userStore';
+import { auth } from '../../lib/firebase';
 
 
 function Detail() {
+
+    const {fetchUserInfo} = useUserStore();
+    const handleLogout = () => {
+        auth.signOut();
+    }
     return (
         <div className='detail'>
             <div className="user">
@@ -69,7 +76,7 @@ function Detail() {
                 </div>
                 <div className='bottom'>
                 <button className='blockButton'>Block User</button>
-                <button className='logoutButton'>LogOut</button>
+                <button className='logoutButton' onClick={handleLogout}>LogOut</button>
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ body{
   justify-content: center;
   height: 100vh;
   background-image: url('https://images.pexels.com/photos/1824570/pexels-photo-1824570.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   margin: 0;
   padding: 0;
@@ -26,4 +26,16 @@ body{
   border-radius: 15px;
   display: flex;
   backdrop-filter: blur(10px);
+}
+
+.loading{
+  width: max-content;
+  height: max-content;
+  /* padding: 50px; */
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-size: 36px;
+  /* margin: auto; */
 }

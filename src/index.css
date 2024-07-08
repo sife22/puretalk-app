@@ -12,11 +12,13 @@ body{
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url('https://images.pexels.com/photos/4857556/pexels-photo-4857556.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-  background-size: cover;
-  background-position: center;
   margin: 0;
   padding: 0;
+  background: 
+  linear-gradient(45deg,  transparent 0%, transparent 57%, #423246 100%),
+  linear-gradient(-45deg, #8f5046 0%,  #A14436 0.3%, #4C2556 112%,  transparent 11% ),
+  linear-gradient(-90deg, #A14436 100%, #A14436 65%, transparent 20% )
+  ;
 }
 
 .app{

@@ -1,50 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@200&family=Playwrite+NG+Modern:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fustat:wght@200..800&family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
 
-.login{
+.login {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 100px 20px;
     flex: 2;
-    
 
-    .loginForm{
+
+    .loginForm {
         flex: 1;
 
-        
+
     }
 
-    .registerForm{
+    .registerForm {
         flex: 1;
-    border-left: 2px solid lightgrey;
+        border-left: 2px solid lightgrey;
 
     }
-    .title{
+
+    .title {
         text-align: center;
-        font-family: "Playwrite NG Modern", cursive;
-        font-weight: 400;
+        font-family: "Fustat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+        font-size: 40px;
+        color: white;
     }
 
-    .actions{
+    .actions {
         padding: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        .file{
+        .file {
             display: flex;
             align-items: center;
             margin-bottom: 5px;
-            img{
+            
+            
+
+            img {
                 width: 60px;
                 height: 60px;
                 object-fit: cover;
                 border-radius: 10px;
+                
             }
         }
 
-        input{
+        input {
+            font-family: "Fustat", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;            
             border: none;
             width: 80%;
             padding: 15px;
@@ -54,7 +67,7 @@
             margin: 10px 0px;
         }
 
-        button{
+        button {
             border: none;
             width: 30%;
             padding: 15px;
@@ -65,10 +78,22 @@
             cursor: pointer;
             margin: 10px 0px;
             font-size: 15px;
+            transition: 0.5s;
+            font-family: "Fustat", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;       
 
-            &:disabled{
+
+            &:disabled {
                 cursor: not-allowed;
                 background-color: rgba(153, 205, 50, 0.502);
+            }
+
+            &:hover {
+                transition: 0.5s;
+                background-color: rgb(195, 254, 76);
+                transform: scale(1.1);
+
             }
         }
     }

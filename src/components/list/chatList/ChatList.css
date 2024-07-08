@@ -64,11 +64,14 @@
             gap: 10px;
             span{
                 font-weight: 500;
+                color: white;
             }
             p{
                 font-size: 14px;
                 font-weight: 300;
                 margin: 0;
+                color: grey;
+
             }
         }
 

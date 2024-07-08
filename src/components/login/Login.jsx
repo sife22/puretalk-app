@@ -85,6 +85,7 @@ function Login() {
     return (
         <div className='login'>
             <form className='loginForm' onSubmit={handleLogin}>
+                <h1 className='title__puretalk'>PureTalk App</h1>
                 <h1 className='title'>Welcome back</h1>
                 <div className='actions'>
                     <input type="email" placeholder='Enter your email : ' name='email' />

@@ -102,17 +102,17 @@ function Chat() {
         <div className='chat'>
             <div className='top'>
                 <div className='user'>
-                <img src={user?.avatar || "https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg" } alt="" srcSet="" />
+                    <img src={user?.avatar || "https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg"} alt="" srcSet="" />
                     <div className='texts'>
                         <span>{user?.username}</span>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                     </div>
                 </div>
-                <div className='icons'>
+                {/* <div className='icons'>
                     <img src="https://cdn-icons-png.freepik.com/256/455/455705.png?semt=ais_hybrid" alt="" srcSet="" />
                     <img src="https://cdn-icons-png.flaticon.com/512/4503/4503915.png" alt="" srcSet="" />
                     <img src="https://cdn-icons-png.flaticon.com/256/64/64159.png" alt="" srcSet="" />
-                </div>
+                </div> */}
             </div>
 
 

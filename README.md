@@ -1,9 +1,3 @@
-<div style="display: flex; flex-wrap: wrap;">
-<p align="center"><a href="https://fr.legacy.reactjs.org/" target="_blank"><img src="https://cdn.worldvectorlogo.com/logos/react-1.svg" width="400" alt="ReactJs Logo"></a></p>
-<p align="center"><a href="https://fr.legacy.reactjs.org/" target="_blank"><img src="https://cdn.worldvectorlogo.com/logos/redux.svg" width="400" alt="Redux Logo"></a></p>
-<p align="center"><a href="https://console.firebase.google.com/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/New_Firebase_logo.svg/2560px-New_Firebase_logo.svg.png" width="400" alt="Firebase Logo"></a></p>
-</div>
-
 # PureTalk-App
 Une application de chat en temps réel construite avec ReactJS, Redux et Firebase.
 

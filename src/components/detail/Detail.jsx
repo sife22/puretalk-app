@@ -8,12 +8,14 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 
 function Detail() {
 
-    const { fetchUserInfo } = useUserStore();
+    // const { fetchUserInfo } = useUserStore();
     const handleLogout = () => {
         auth.signOut();
     }
 
-    const { chatId,
+    // const { chatId } = useChatStore();
+
+    const {
         user,
         isCurrentUserBlocked,
         isReceiverBlocked, changeBlock } = useChatStore();

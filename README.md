@@ -34,5 +34,5 @@ Une application de chat en temps réel construite avec ReactJS, Redux et Firebas
 5. Démarrez l'application :
    npm start
 
-## Installation
-L'application est accessible via ce lien : puretalk-app.netlify.app
+## Déploiement
+L'application est accessible via ce lien : https://puretalk-app.netlify.app/

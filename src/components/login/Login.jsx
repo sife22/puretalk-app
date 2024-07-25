@@ -100,9 +100,9 @@ function Login() {
                         <img src={avatar.url || "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"} alt="" srcset="" />
                         <input type="file" placeholder='Enter an username : ' onChange={handleAvatar} />
                     </div>
-                    <input type="text" placeholder='Enter an username : ' name='username' />
-                    <input type="email" placeholder='Enter an email : ' name='email' />
-                    <input type="password" placeholder='Enter a password : ' name='password' />
+                    <input type="text" placeholder='Username : ' name='username' />
+                    <input type="email" placeholder='Email : ' name='email' />
+                    <input type="password" placeholder='Password : ' name='password' />
                     <button disabled={loading}>{loading ? 'Loading' : 'Sign up'}</button>
                 </div>
             </form>

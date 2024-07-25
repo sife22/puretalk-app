@@ -14,6 +14,8 @@ function Login() {
         url: ""
     })
 
+    const [color, setColor] = useState(false)
+
     const [loading, setLoading] = useState(false);
 
     const handleAvatar = (e) => {
@@ -36,7 +38,8 @@ function Login() {
             toast.success("Bienvenu chez vous")
         } catch (error) {
             console.log(error.message);
-            toast.error(error.message)
+            toast.error(error.message);
+            setColor(true)
         } finally {
             setLoading(false)
         }
@@ -90,7 +93,10 @@ function Login() {
                 <div className='actions'>
                     <input type="email" placeholder='Enter your email : ' name='email' />
                     <input type="password" placeholder='Enter your password : ' name='password' />
-                    <button disabled={loading}>{loading ? 'Loading' : 'Sign in'}</button>
+                    <button disabled={loading}
+                      style={color ? { background: 'red' } : {}}
+                    >
+                        {loading ? 'Loading' : 'Sign in'}</button>
                 </div>
             </form>
             <form className='registerForm' onSubmit={handleRegister}>

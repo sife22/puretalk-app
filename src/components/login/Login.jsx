@@ -35,6 +35,7 @@ function Login() {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
+            setColor(false)
             toast.success("Bienvenu chez vous")
         } catch (error) {
             console.log(error.message);
@@ -91,8 +92,8 @@ function Login() {
                 <h1 className='title__puretalk'>PureTalk App</h1>
                 <h1 className='title'>Welcome back</h1>
                 <div className='actions'>
-                    <input type="email" placeholder='Enter your email : ' name='email' />
-                    <input type="password" placeholder='Enter your password : ' name='password' />
+                    <input type="email" placeholder='Email : ' name='email' />
+                    <input type="password" placeholder='Password : ' name='password' />
                     <button disabled={loading}
                       style={color ? { background: 'red' } : {}}
                     >
@@ -106,9 +107,9 @@ function Login() {
                         <img src={avatar.url || "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"} alt="" srcset="" />
                         <input type="file" placeholder='Enter an username : ' onChange={handleAvatar} />
                     </div>
-                    <input type="text" placeholder='Username : ' name='username' />
-                    <input type="email" placeholder='Email : ' name='email' />
-                    <input type="password" placeholder='Password : ' name='password' />
+                    <input type="text" placeholder='Username : ' name='username' required/>
+                    <input type="email" placeholder='Email : ' name='email' required/>
+                    <input type="password" placeholder='Password : ' name='password' required/>
                     <button disabled={loading}>{loading ? 'Loading' : 'Sign up'}</button>
                 </div>
             </form>

@@ -1,5 +1,5 @@
 # PureTalk-App
-Une application de chat en temps réel construite avec ReactJS, Redux et Firebase.
+Une application de chat en temps réel construite en utilisant ReactJS, Redux et Firebase.
 
 ## Fonctionnalités
 - Inscription et connexion des utilisateurs
@@ -20,7 +20,7 @@ Une application de chat en temps réel construite avec ReactJS, Redux et Firebas
    git clone https://github.com/sife22/puretalk-app.git
 
 2. Accédez au répertoire du projet :
-   cd chat-app
+   cd puretalk-app
 
 3. Installez les dépendances :
    npm install

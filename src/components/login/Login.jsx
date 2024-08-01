@@ -92,8 +92,8 @@ function Login() {
                 <h1 className='title__puretalk'>PureTalk App</h1>
                 <h1 className='title'>Welcome back</h1>
                 <div className='actions'>
-                    <input type="email" placeholder='Email : ' name='email' />
-                    <input type="password" placeholder='Password : ' name='password' />
+                    <input type="email" placeholder='Email : ' name='email' required/>
+                    <input type="password" placeholder='Password : ' name='password' required/>
                     <button disabled={loading}
                       style={color ? { background: 'red' } : {}}
                     >
@@ -105,7 +105,7 @@ function Login() {
                 <div className='actions'>
                     <div className='file'>
                         <img src={avatar.url || "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"} alt="" srcset="" />
-                        <input type="file" placeholder='Enter an username : ' onChange={handleAvatar} />
+                        <input type="file" placeholder='Enter an username : ' onChange={handleAvatar} required />
                     </div>
                     <input type="text" placeholder='Username : ' name='username' required/>
                     <input type="email" placeholder='Email : ' name='email' required/>
